@@ -55,9 +55,11 @@ public class Dome01 {
  * 定义队列对象
  */
 class QueueArray{
+    @SuppressWarnings({"all"})
     private int maxSize;        // 队列最大容量
     private int rear;           // 队列输入指针
     private int front;          // 队列输出指针
+    @SuppressWarnings({"all"})
     private int[] queueArray;   // 队列数组
 
     /**
@@ -116,6 +118,10 @@ class QueueArray{
      * 查看队列数组
      */
     public void seeQueueArray(){
+        if(isEmpty()){
+            System.out.println("队列已空");
+            return;
+        }
         for (int i = 0; i < queueArray.length; i++) {
             System.out.printf("%d=%d\n",i,queueArray[i]);
         }
@@ -125,6 +131,10 @@ class QueueArray{
      * 查看当前的输出指针
      */
     public void seeNowFront(){
-        System.out.printf("当前输出指针=%d\n",front);
+        if(isEmpty()){
+            System.out.println("队列已空");
+            return;
+        }
+        System.out.printf("当前输出指针%d的值是：%d\n",front+1, queueArray[front + 1]);
     }
 }
