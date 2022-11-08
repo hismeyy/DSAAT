@@ -1,5 +1,7 @@
 package com.dsaat;
 
+import java.util.Objects;
+
 public class Dome01 {
     public static void main(String[] args) {
         SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
@@ -7,7 +9,7 @@ public class Dome01 {
         Node node2 = new Node(1, "李四");
         Node node3 = new Node(2, "王五");
         Node node4 = new Node(3, "赵六");
-        Node node5 = new Node(2, "赵器");
+        Node node5 = new Node(3, "赵七");
 
         // 不按顺序添加测试
 //        singlyLinkedList.add(node1);
@@ -18,10 +20,13 @@ public class Dome01 {
         // 按顺序添加测试
         singlyLinkedList.addOderBy(node1);
         singlyLinkedList.addOderBy(node4);
-        singlyLinkedList.addOderBy(node5);
         singlyLinkedList.addOderBy(node2);
         singlyLinkedList.addOderBy(node3);
+        System.out.println(singlyLinkedList);
 
+        // 修改代码测试
+        System.out.println("修改后");
+        singlyLinkedList.update(node5);
         System.out.println(singlyLinkedList);
     }
 }
@@ -79,6 +84,37 @@ class SinglyLinkedList{
             node.next = temp.next;
             // 2. 再把temp的next变为node
             temp.next = node;
+        }
+    }
+
+    /**
+     * 修改数据
+     * @param node
+     */
+    public void update(Node node){
+        Node temp = HEAD_NODE;
+        boolean flag = false;
+
+        while (true){
+            // 遍历到空时，直接停止
+            if(temp.next == null){break;}
+            // 找到node.id和temp.id相同
+            if(Objects.equals(node.id, temp.next.id)){
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+
+        if(flag){
+            // 如果id相同可以修改，就直接把找到的节点用新节点替换掉
+            // 1. 把找到节点的下一个节点给了新的节点node
+            node.next = temp.next.next;
+            // 2. 再把找到节点的上一个节点指向新的节点
+            temp.next = node;
+            System.out.printf("id为%d的Node修改成功!\n", node.id);
+        }else {
+            System.out.printf("id为%d的Node未找到!\n", node.id);
         }
     }
 
