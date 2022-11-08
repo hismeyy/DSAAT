@@ -7,11 +7,20 @@ public class Dome01 {
         Node node2 = new Node(1, "李四");
         Node node3 = new Node(2, "王五");
         Node node4 = new Node(3, "赵六");
+        Node node5 = new Node(2, "赵器");
 
-        singlyLinkedList.add(node1);
-        singlyLinkedList.add(node2);
-        singlyLinkedList.add(node3);
-        singlyLinkedList.add(node4);
+        // 不按顺序添加测试
+//        singlyLinkedList.add(node1);
+//        singlyLinkedList.add(node2);
+//        singlyLinkedList.add(node3);
+//        singlyLinkedList.add(node4);
+
+        // 按顺序添加测试
+        singlyLinkedList.addOderBy(node1);
+        singlyLinkedList.addOderBy(node4);
+        singlyLinkedList.addOderBy(node5);
+        singlyLinkedList.addOderBy(node2);
+        singlyLinkedList.addOderBy(node3);
 
         System.out.println(singlyLinkedList);
     }
@@ -27,7 +36,7 @@ class SinglyLinkedList{
     }
 
     /**
-     * 添加
+     * 不按顺序添加
      * @param node
      */
     public void add(Node node){
@@ -40,6 +49,39 @@ class SinglyLinkedList{
             temp = temp.next;
         }
     }
+
+    /**
+     * 按顺序添加添加
+     * @param node
+     */
+    public void addOderBy(Node node){
+        Node temp = HEAD_NODE;
+        boolean flag = false;   //表示id是否存在
+        while(true){
+            if(temp.next == null){
+                // 如果是空说明到了最后一个
+                break;
+            }
+
+            if(temp.next.id > node.id){
+                break;
+            }else if(temp.next.id.equals(node.id)){
+                // 如果相等，就不添加
+                flag = true;
+                break;
+            }
+            // 向后移动
+            temp = temp.next;
+        }
+
+        if(!flag){
+            // 1. 先把原先的temp的next放到node的next
+            node.next = temp.next;
+            // 2. 再把temp的next变为node
+            temp.next = node;
+        }
+    }
+
 
     @Override
     public String toString() {
