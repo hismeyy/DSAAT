@@ -31,8 +31,12 @@ public class Dome01 {
 
         // 删除代码测试
         System.out.println("删除后");
-        singlyLinkedList.delete(0);
+        System.out.println(singlyLinkedList.delete(0));
         System.out.println(singlyLinkedList);
+
+        // 查找代码测试
+        System.out.println("查找");
+        System.out.println(singlyLinkedList.findNode(2));
     }
 }
 
@@ -112,9 +116,10 @@ class SinglyLinkedList{
         }
 
         if(flag){
+            Node oldNode = temp.next;
             temp.next = temp.next.next;
             System.out.printf("id为%d的Node已经删除\n", id);
-            return temp;
+            return oldNode;
         }else {
             System.out.printf("未找到id为%d的Node", id);
             return null;
@@ -149,6 +154,34 @@ class SinglyLinkedList{
             System.out.printf("id为%d的Node修改成功!\n", node.id);
         }else {
             System.out.printf("id为%d的Node未找到!\n", node.id);
+        }
+    }
+
+    /**
+     * 查找数据
+     * @param id 要查找数据的id
+     * @return 查找的node
+     */
+    public Node findNode(int id){
+        Node temp = HEAD_NODE;
+        boolean flag = false;
+
+        while (true){
+            if(temp.next == null){break;}
+
+            if(temp.next.id == id){
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+
+        if(flag){
+            System.out.printf("id为%d的Node已找到\n", id);
+            return temp.next;
+        }else {
+            System.out.printf("未找到id为%d的Node", id);
+            return null;
         }
     }
 
