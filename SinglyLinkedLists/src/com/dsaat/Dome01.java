@@ -28,6 +28,11 @@ public class Dome01 {
         System.out.println("修改后");
         singlyLinkedList.update(node5);
         System.out.println(singlyLinkedList);
+
+        // 删除代码测试
+        System.out.println("删除后");
+        singlyLinkedList.delete(0);
+        System.out.println(singlyLinkedList);
     }
 }
 
@@ -88,8 +93,37 @@ class SinglyLinkedList{
     }
 
     /**
+     * 删除数据
+     * @param id 要删除数据对应的id
+     * @return 删除的node
+     */
+    public Node delete(int id){
+        Node temp = HEAD_NODE;
+        boolean flag = false;
+
+        while (true){
+            if(temp.next == null){break;}
+
+            if(temp.next.id == id){
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+
+        if(flag){
+            temp.next = temp.next.next;
+            System.out.printf("id为%d的Node已经删除\n", id);
+            return temp;
+        }else {
+            System.out.printf("未找到id为%d的Node", id);
+            return null;
+        }
+    }
+
+    /**
      * 修改数据
-     * @param node
+     * @param node 修改的node
      */
     public void update(Node node){
         Node temp = HEAD_NODE;
